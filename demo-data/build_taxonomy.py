@@ -1,0 +1,93 @@
+﻿import json
+
+skills = [
+    # AI / ML / Data Science / GenAI
+    {"id": "skill_py", "name": "Python", "category": "Programming Languages", "cluster": "AI and Backend", "demand_weight": 95, "aliases": ["python3", "py", "python 3"]},
+    {"id": "skill_ml", "name": "Machine Learning", "category": "Artificial Intelligence", "cluster": "AI and Data Science", "demand_weight": 90, "aliases": ["ml", "machine-learning", "statistical learning"]},
+    {"id": "skill_dl", "name": "Deep Learning", "category": "Artificial Intelligence", "cluster": "AI and Data Science", "demand_weight": 88, "aliases": ["dl", "deep-learning", "neural networks", "ann", "cnn"]},
+    {"id": "skill_nlp", "name": "Natural Language Processing", "category": "Artificial Intelligence", "cluster": "AI and Data Science", "demand_weight": 89, "aliases": ["nlp", "text processing", "computational linguistics", "tokenization", "bert"]},
+    {"id": "skill_cv", "name": "Computer Vision", "category": "Artificial Intelligence", "cluster": "AI and Data Science", "demand_weight": 83, "aliases": ["cv", "image processing", "vision ai", "opencv", "yolo"]},
+    {"id": "skill_llm", "name": "Large Language Models", "category": "Artificial Intelligence", "cluster": "Generative AI", "demand_weight": 97, "aliases": ["llm", "llms", "foundation models", "gpt", "claude", "gemini", "llama"]},
+    {"id": "skill_genai", "name": "Generative AI", "category": "Artificial Intelligence", "cluster": "Generative AI", "demand_weight": 96, "aliases": ["genai", "gen-ai", "generative modeling", "prompt engineering"]},
+    {"id": "skill_rag", "name": "Retrieval-Augmented Generation", "category": "Artificial Intelligence", "cluster": "Generative AI", "demand_weight": 94, "aliases": ["rag", "retrieval augmented generation", "vector search rag"]},
+    {"id": "skill_langchain", "name": "LangChain", "category": "Frameworks and Libraries", "cluster": "Generative AI", "demand_weight": 91, "aliases": ["lang-chain", "langchain.js", "langchain framework"]},
+    {"id": "skill_llamaindex", "name": "LlamaIndex", "category": "Frameworks and Libraries", "cluster": "Generative AI", "demand_weight": 86, "aliases": ["llama-index", "gpt index"]},
+    {"id": "skill_mlops", "name": "MLOps", "category": "DevOps and Infrastructure", "cluster": "AI Engineering", "demand_weight": 94, "aliases": ["ml-ops", "machine learning operations", "model deployment", "mlflow", "kubeflow", "weights & biases", "wandb"]},
+    {"id": "skill_pytorch", "name": "PyTorch", "category": "Frameworks and Libraries", "cluster": "AI and Data Science", "demand_weight": 92, "aliases": ["torch", "pytorch framework"]},
+    {"id": "skill_tf", "name": "TensorFlow", "category": "Frameworks and Libraries", "cluster": "AI and Data Science", "demand_weight": 81, "aliases": ["tf", "tensorflow2", "tensor flow", "keras"]},
+    {"id": "skill_huggingface", "name": "Hugging Face", "category": "Frameworks and Libraries", "cluster": "Generative AI", "demand_weight": 90, "aliases": ["transformers", "huggingface", "hf transformers", "diffusers"]},
+    {"id": "skill_finetuning", "name": "Model Fine-Tuning & PEFT", "category": "Artificial Intelligence", "cluster": "Generative AI", "demand_weight": 89, "aliases": ["lora", "qlora", "fine-tuning", "peft", "sft"]},
+    {"id": "skill_pandas", "name": "Pandas", "category": "Data Engineering", "cluster": "Data Science", "demand_weight": 87, "aliases": ["pd", "pandas dataframe"]},
+    {"id": "skill_numpy", "name": "NumPy", "category": "Data Engineering", "cluster": "Data Science", "demand_weight": 85, "aliases": ["np", "numpy array"]},
+    {"id": "skill_scikit", "name": "Scikit-Learn", "category": "Frameworks and Libraries", "cluster": "AI and Data Science", "demand_weight": 86, "aliases": ["sklearn", "scikit learn", "scikit-learn"]},
+    {"id": "skill_vector_db", "name": "Vector Databases", "category": "Databases", "cluster": "Generative AI", "demand_weight": 91, "aliases": ["pinecone", "weaviate", "qdrant", "chromadb", "milvus", "faiss", "vector search"]},
+    {"id": "skill_data_viz", "name": "Data Visualization", "category": "Data Engineering", "cluster": "Data Science", "demand_weight": 80, "aliases": ["matplotlib", "seaborn", "powerbi", "tableau", "plotly"]},
+    {"id": "skill_spark", "name": "Apache Spark", "category": "Data Engineering", "cluster": "Big Data", "demand_weight": 85, "aliases": ["pyspark", "spark", "spark streaming"]},
+    {"id": "skill_kafka", "name": "Apache Kafka", "category": "Data Engineering", "cluster": "Distributed Systems", "demand_weight": 88, "aliases": ["kafka", "event streaming", "pubsub"]},
+
+    # Web & Fullstack Development
+    {"id": "skill_ts", "name": "TypeScript", "category": "Programming Languages", "cluster": "Web Development", "demand_weight": 93, "aliases": ["ts", "typescriptlang"]},
+    {"id": "skill_js", "name": "JavaScript", "category": "Programming Languages", "cluster": "Web Development", "demand_weight": 91, "aliases": ["js", "ecmascript", "es6", "es2022", "vanilla js"]},
+    {"id": "skill_react", "name": "React", "category": "Frontend", "cluster": "Web Development", "demand_weight": 95, "aliases": ["reactjs", "react.js", "react framework"]},
+    {"id": "skill_nextjs", "name": "Next.js", "category": "Frontend", "cluster": "Web Development", "demand_weight": 94, "aliases": ["next", "nextjs", "next.js 14", "next.js 15"]},
+    {"id": "skill_tailwind", "name": "Tailwind CSS", "category": "Frontend", "cluster": "Web Development", "demand_weight": 89, "aliases": ["tailwind", "tailwindcss"]},
+    {"id": "skill_html_css", "name": "HTML5 and CSS3", "category": "Frontend", "cluster": "Web Development", "demand_weight": 88, "aliases": ["html", "css", "html5", "css3", "web styling"]},
+    {"id": "skill_vue", "name": "Vue.js", "category": "Frontend", "cluster": "Web Development", "demand_weight": 78, "aliases": ["vue", "vuejs", "vue 3", "nuxt"]},
+    {"id": "skill_angular", "name": "Angular", "category": "Frontend", "cluster": "Web Development", "demand_weight": 76, "aliases": ["angularjs", "angular 16", "angular 17"]},
+    {"id": "skill_nodejs", "name": "Node.js", "category": "Backend", "cluster": "Web Development", "demand_weight": 92, "aliases": ["node", "nodejs", "node js"]},
+    {"id": "skill_fastapi", "name": "FastAPI", "category": "Backend", "cluster": "Web Development", "demand_weight": 93, "aliases": ["fast-api", "fast api framework", "fastapi python"]},
+    {"id": "skill_django", "name": "Django", "category": "Backend", "cluster": "Web Development", "demand_weight": 82, "aliases": ["django framework", "drf", "django rest framework"]},
+    {"id": "skill_express", "name": "Express.js", "category": "Backend", "cluster": "Web Development", "demand_weight": 86, "aliases": ["express", "expressjs"]},
+    {"id": "skill_graphql", "name": "GraphQL", "category": "Backend", "cluster": "API Architecture", "demand_weight": 80, "aliases": ["gql", "graphql api", "apollo"]},
+    {"id": "skill_rest", "name": "RESTful APIs", "category": "Backend", "cluster": "API Architecture", "demand_weight": 92, "aliases": ["rest api", "restful", "web apis", "rest"]},
+    {"id": "skill_websockets", "name": "WebSockets", "category": "Backend", "cluster": "Real-time Systems", "demand_weight": 83, "aliases": ["websocket", "socket.io", "realtime"]},
+
+    # Mobile App Development
+    {"id": "skill_react_native", "name": "React Native", "category": "Mobile Development", "cluster": "Mobile", "demand_weight": 86, "aliases": ["react-native", "rn", "expo"]},
+    {"id": "skill_flutter", "name": "Flutter", "category": "Mobile Development", "cluster": "Mobile", "demand_weight": 85, "aliases": ["dart", "flutter framework"]},
+    {"id": "skill_android_kotlin", "name": "Android & Kotlin", "category": "Mobile Development", "cluster": "Mobile", "demand_weight": 84, "aliases": ["android", "kotlin", "jetpack compose"]},
+
+    # Programming Languages & Systems
+    {"id": "skill_cpp", "name": "C++", "category": "Programming Languages", "cluster": "Systems and Core CS", "demand_weight": 85, "aliases": ["cpp", "c plus plus", "c++20", "modern cpp"]},
+    {"id": "skill_c", "name": "C", "category": "Programming Languages", "cluster": "Systems and Core CS", "demand_weight": 80, "aliases": ["c language", "ansi c"]},
+    {"id": "skill_java", "name": "Java", "category": "Programming Languages", "cluster": "Enterprise Systems", "demand_weight": 88, "aliases": ["java 17", "java 21", "core java", "spring boot", "springboot"]},
+    {"id": "skill_golang", "name": "Go", "category": "Programming Languages", "cluster": "Cloud and Systems", "demand_weight": 89, "aliases": ["golang", "go language"]},
+    {"id": "skill_rust", "name": "Rust", "category": "Programming Languages", "cluster": "Systems and Core CS", "demand_weight": 84, "aliases": ["rustlang", "rust-lang"]},
+    {"id": "skill_sql", "name": "SQL", "category": "Databases", "cluster": "Data and Storage", "demand_weight": 93, "aliases": ["structured query language", "ansi sql", "rdbms"]},
+    {"id": "skill_postgres", "name": "PostgreSQL", "category": "Databases", "cluster": "Data and Storage", "demand_weight": 94, "aliases": ["postgres", "psql", "postgresql 15", "supabase"]},
+    {"id": "skill_mongodb", "name": "MongoDB", "category": "Databases", "cluster": "Data and Storage", "demand_weight": 85, "aliases": ["mongo", "documentdb", "nosql"]},
+    {"id": "skill_redis", "name": "Redis", "category": "Databases", "cluster": "Data and Storage", "demand_weight": 88, "aliases": ["redis cache", "in-memory db", "caching"]},
+
+    # DevOps, Cloud & Infrastructure
+    {"id": "skill_docker", "name": "Docker", "category": "DevOps and Infrastructure", "cluster": "Cloud Native", "demand_weight": 94, "aliases": ["containerization", "containers", "docker engine", "dockerfile"]},
+    {"id": "skill_k8s", "name": "Kubernetes", "category": "DevOps and Infrastructure", "cluster": "Cloud Native", "demand_weight": 92, "aliases": ["k8s", "kube", "kubernetes cluster"]},
+    {"id": "skill_aws", "name": "Amazon Web Services", "category": "Cloud", "cluster": "Cloud Native", "demand_weight": 93, "aliases": ["aws", "amazon aws", "aws cloud", "ec2", "s3", "lambda"]},
+    {"id": "skill_azure", "name": "Microsoft Azure", "category": "Cloud", "cluster": "Cloud Native", "demand_weight": 87, "aliases": ["azure", "ms azure"]},
+    {"id": "skill_gcp", "name": "Google Cloud Platform", "category": "Cloud", "cluster": "Cloud Native", "demand_weight": 86, "aliases": ["gcp", "google cloud", "vertex ai"]},
+    {"id": "skill_terraform", "name": "Terraform", "category": "DevOps and Infrastructure", "cluster": "Infrastructure as Code", "demand_weight": 86, "aliases": ["iac", "terraform hcl", "opentofu"]},
+    {"id": "skill_cicd", "name": "CI/CD", "category": "DevOps and Infrastructure", "cluster": "DevOps", "demand_weight": 90, "aliases": ["continuous integration", "continuous deployment", "github actions", "gitlab ci", "jenkins"]},
+    {"id": "skill_git", "name": "Git", "category": "Tools", "cluster": "Software Engineering", "demand_weight": 96, "aliases": ["github", "version control", "vcs", "gitlab"]},
+    {"id": "skill_linux", "name": "Linux", "category": "Operating Systems", "cluster": "Systems and Core CS", "demand_weight": 91, "aliases": ["unix", "ubuntu", "bash", "shell scripting"]},
+    {"id": "skill_cybersecurity", "name": "Cybersecurity Fundamentals", "category": "Security", "cluster": "Information Security", "demand_weight": 87, "aliases": ["cyber security", "infosec", "owasp", "network security"]},
+
+    # Core Computer Science
+    {"id": "skill_dsa", "name": "Data Structures and Algorithms", "category": "Core CS", "cluster": "Computer Science", "demand_weight": 96, "aliases": ["dsa", "algorithms", "data structures", "problem solving dsa", "leetcode"]},
+    {"id": "skill_sysdesign", "name": "System Design", "category": "Core CS", "cluster": "Software Architecture", "demand_weight": 92, "aliases": ["system architecture", "distributed systems", "high level design", "hld", "lld", "microservices"]},
+    {"id": "skill_dbms", "name": "Database Management Systems", "category": "Core CS", "cluster": "Computer Science", "demand_weight": 89, "aliases": ["dbms", "database concepts", "acid properties", "normalization"]},
+    {"id": "skill_os", "name": "Operating Systems", "category": "Core CS", "cluster": "Computer Science", "demand_weight": 86, "aliases": ["os concepts", "concurrency", "threads", "memory management"]},
+    {"id": "skill_cn", "name": "Computer Networks", "category": "Core CS", "cluster": "Computer Science", "demand_weight": 86, "aliases": ["networking", "tcp/ip", "http", "dns", "osi model"]},
+
+    # Testing & Quality Assurance
+    {"id": "skill_testing", "name": "Software Testing & QA", "category": "Software Engineering", "cluster": "Quality Assurance", "demand_weight": 84, "aliases": ["unit testing", "pytest", "jest", "cypress", "playwright", "tdd"]},
+
+    # Professional & Soft Skills
+    {"id": "skill_comm", "name": "Technical Communication", "category": "Soft Skills", "cluster": "Professional Competency", "demand_weight": 92, "aliases": ["communication", "written communication", "verbal communication", "presentation"]},
+    {"id": "skill_teamwork", "name": "Collaboration and Teamwork", "category": "Soft Skills", "cluster": "Professional Competency", "demand_weight": 91, "aliases": ["team player", "cross-functional collaboration", "peer review"]},
+    {"id": "skill_agile", "name": "Agile and Scrum", "category": "Methodology", "cluster": "Project Management", "demand_weight": 87, "aliases": ["scrum", "agile methodology", "sprint planning", "kanban", "jira"]},
+    {"id": "skill_crit_thinking", "name": "Analytical and Critical Thinking", "category": "Soft Skills", "cluster": "Cognitive Skills", "demand_weight": 93, "aliases": ["analytical thinking", "problem solving", "critical thinking", "debugging mindset"]}
+]
+
+with open("demo-data/skills_taxonomy.json", "w", encoding="utf-8") as f:
+    json.dump(skills, f, indent=2)
+
+print(f"Total skills in canonical taxonomy: {len(skills)}")
